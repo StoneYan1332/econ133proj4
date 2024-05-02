@@ -33,10 +33,21 @@ def adjust_uganda_prices(new_price, prices=uganda_reference_prices, good=food):
     adjusted_prices.loc[good] = new_price
     return adjusted_prices
 
-#Test#Run
+#Test
+class TestAdjustUgandaPrices(unittest.TestCase):
+    def setUp(self):
+        self.new_price = 10
+        self.prices = pd.Series([20,30,40] index = ['Beef', 'Chicken', 'Fish'])
+        self.good = 'Beef'
 
-test_adjeust_uganda_prices())
+    def test_adjust_uganda_prices(self):
+        adjusted_prices = adjust_uganda_prices(self.new_price, self.prices, self.good)
+        
+         expected_output = pd.Series([10, 30, 40], index=['Beef', 'Chicken', 'Fish'])
+        pd.testing.assert_series_equal(adjusted_prices, expected_output, 'series not equal')
+
+#Run
+$ python -m unittest nutrition_results_test.py
+
 if __name__ == '__main__':
     unittest.main(argv=[''], exit=False)
-
-$ python -m unittest <module-name>.pynutrition_results_test "", ''series not equal
